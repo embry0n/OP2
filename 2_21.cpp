@@ -1,4 +1,5 @@
-//Найти ромб наибольшей площади с вершинами в заданном множестве точек на плоскости.
+//ГЌГ Г©ГІГЁ Г°Г®Г¬ГЎ Г­Г ГЁГЎГ®Г«ГјГёГҐГ© ГЇГ«Г®Г№Г Г¤ГЁ Г± ГўГҐГ°ГёГЁГ­Г Г¬ГЁ Гў Г§Г Г¤Г Г­Г­Г®Г¬ Г¬Г­Г®Г¦ГҐГ±ГІГўГҐ ГІГ®Г·ГҐГЄ Г­Г  ГЇГ«Г®Г±ГЄГ®Г±ГІГЁ.
+//NOT KONTROLBNAIA RABOTA
 
 #include <iostream>
 #include <vector>
@@ -10,12 +11,12 @@ struct Point {
     double y;
 };
 
-// Функция для вычисления площади ромба
+// Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГї ГЇГ«Г®Г№Г Г¤ГЁ Г°Г®Г¬ГЎГ 
 double calculateArea(const Point& p1, const Point& p2, const Point& p3) {
     return std::abs((p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y)) / 2.0);
 }
 
-// Функция для проверки, являются ли точки вершинами ромба
+// Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГЇГ°Г®ГўГҐГ°ГЄГЁ, ГїГўГ«ГїГѕГІГ±Гї Г«ГЁ ГІГ®Г·ГЄГЁ ГўГҐГ°ГёГЁГ­Г Г¬ГЁ Г°Г®Г¬ГЎГ 
 bool isDiamond(const Point& p1, const Point& p2, const Point& p3, const Point& p4) {
     double centerX = (p1.x + p2.x + p3.x + p4.x) / 4.0;
     double centerY = (p1.y + p2.y + p3.y + p4.y) / 4.0;
@@ -28,23 +29,23 @@ bool isDiamond(const Point& p1, const Point& p2, const Point& p3, const Point& p
     return (dist1 == dist2 && dist1 == dist3 && dist1 == dist4);
 }
 
-// Функция для поиска ромба с наибольшей площадью
+// Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГЇГ®ГЁГ±ГЄГ  Г°Г®Г¬ГЎГ  Г± Г­Г ГЁГЎГ®Г«ГјГёГҐГ© ГЇГ«Г®Г№Г Г¤ГјГѕ
 void findLargestDiamond(const std::vector<Point>& points) {
     int n = points.size();
     double maxArea = 0.0;
-    Point p1, p2, p3, p4; // Вершины ромба с наибольшей площадью
+    Point p1, p2, p3, p4; // Г‚ГҐГ°ГёГЁГ­Г» Г°Г®Г¬ГЎГ  Г± Г­Г ГЁГЎГ®Г«ГјГёГҐГ© ГЇГ«Г®Г№Г Г¤ГјГѕ
 
     for (int i = 0; i < n - 3; ++i) {
         for (int j = i + 1; j < n - 2; ++j) {
             for (int k = j + 1; k < n - 1; ++k) {
                 for (int l = k + 1; l < n; ++l) {
-                    // Проверяем, являются ли точки вершинами ромба
+                    // ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, ГїГўГ«ГїГѕГІГ±Гї Г«ГЁ ГІГ®Г·ГЄГЁ ГўГҐГ°ГёГЁГ­Г Г¬ГЁ Г°Г®Г¬ГЎГ 
                     if (isDiamond(points[i], points[j], points[k], points[l])) {
-                        // Вычисляем площадь ромба
+                        // Г‚Г»Г·ГЁГ±Г«ГїГҐГ¬ ГЇГ«Г®Г№Г Г¤Гј Г°Г®Г¬ГЎГ 
                         double area = calculateArea(points[i], points[j], points[k]) +
                             calculateArea(points[j], points[k], points[l]);
 
-                        // Обновляем максимальную площадь и вершины ромба
+                        // ГЋГЎГ­Г®ГўГ«ГїГҐГ¬ Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­ГіГѕ ГЇГ«Г®Г№Г Г¤Гј ГЁ ГўГҐГ°ГёГЁГ­Г» Г°Г®Г¬ГЎГ 
                         if (area > maxArea) {
                             maxArea = area;
                             p1 = points[i];
@@ -58,31 +59,31 @@ void findLargestDiamond(const std::vector<Point>& points) {
         }
     }
 
-    // Выводим результаты
+    // Г‚Г»ГўГ®Г¤ГЁГ¬ Г°ГҐГ§ГіГ«ГјГІГ ГІГ»
     if (maxArea > 0.0) {
-        std::cout << "Ромб с наибольшей площадью найден:\n";
-        std::cout << "Вершина 1: (" << p1.x << ", " << p1.y << ")\n";
-        std::cout << "Вершина 2: (" << p2.x << ", " << p2.y << ")\n";
-        std::cout << "Вершина 3: (" << p3.x << ", " << p3.y << ")\n";
-        std::cout << "Вершина 4: (" << p4.x << ", " << p4.y << ")\n";
-        std::cout << "Площадь: " << maxArea << "\n";
+        std::cout << "ГђГ®Г¬ГЎ Г± Г­Г ГЁГЎГ®Г«ГјГёГҐГ© ГЇГ«Г®Г№Г Г¤ГјГѕ Г­Г Г©Г¤ГҐГ­:\n";
+        std::cout << "Г‚ГҐГ°ГёГЁГ­Г  1: (" << p1.x << ", " << p1.y << ")\n";
+        std::cout << "Г‚ГҐГ°ГёГЁГ­Г  2: (" << p2.x << ", " << p2.y << ")\n";
+        std::cout << "Г‚ГҐГ°ГёГЁГ­Г  3: (" << p3.x << ", " << p3.y << ")\n";
+        std::cout << "Г‚ГҐГ°ГёГЁГ­Г  4: (" << p4.x << ", " << p4.y << ")\n";
+        std::cout << "ГЏГ«Г®Г№Г Г¤Гј: " << maxArea << "\n";
     }
     else {
-        std::cout << "Ромб с наибольшей площадью не найден.\n";
+        std::cout << "ГђГ®Г¬ГЎ Г± Г­Г ГЁГЎГ®Г«ГјГёГҐГ© ГЇГ«Г®Г№Г Г¤ГјГѕ Г­ГҐ Г­Г Г©Г¤ГҐГ­.\n";
     }
 }
 
 int main() {
     setlocale(LC_ALL, "Russian");
     int numPoints;
-    std::cout << "Введите количество точек: ";
+    std::cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГІГ®Г·ГҐГЄ: ";
     std::cin >> numPoints;
 
     std::vector<Point> points(numPoints);
 
-    std::cout << "Введите координаты точек (x и y):\n";
+    std::cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГІГ®Г·ГҐГЄ (x ГЁ y):\n";
     for (int i = 0; i < numPoints; ++i) {
-        std::cout << "Точка " << i + 1 << ":\n";
+        std::cout << "Г’Г®Г·ГЄГ  " << i + 1 << ":\n";
         std::cout << "x: ";
         std::cin >> points[i].x;
         std::cout << "y: ";
